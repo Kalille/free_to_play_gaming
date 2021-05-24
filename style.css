@@ -1,0 +1,20 @@
+body {
+    background-color:  gray;
+}
+
+.box{
+    position: relative;
+    background: purple;
+    width: 200px;
+    height: 400px;
+    margin: auto;
+}
+.content1-left{
+    background-color: red;
+}
+.content1-middle{
+    background-color: gold;
+}
+.content1-right{
+    background-color: blue;
+}
