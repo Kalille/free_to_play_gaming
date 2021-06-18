@@ -1,11 +1,51 @@
 const mainDiv = document.getElementById('main')
 const gameContainer = document.getElementById('game-container')
 
+// function userInput5(){
+//     document.getElementById('inputBox').value
+// //  console.log(value)
 
-    function fetchByCatergory(){
+// }
+
+      
+// userInput5()
+function target(){
+    
+    const buttonContainer = document.querySelector('#col-1')
+    buttonContainer.addEventListener('click', (e)=>{
+        const target = e.target.id
+      
+  fetchByCatergory(target)
+  
+    // return e.target.id
+    // if(target=== 'alphabetical'){
+    //   return allgames()
+    }
+    
+    
+    
+)
+}
+target()
+
+// const children = document.querySelectorAll('#button')
+// children.forEach(child=>{
+// child.addEventListener('click',()=>console.log(child.id))}
+// )
 
 
-        fetch(`https://free-to-play-games-database.p.rapidapi.com/api/games?category=${userInput1}`, {
+
+
+
+
+
+
+
+
+    function fetchByCatergory(target){
+
+
+        fetch(`https://free-to-play-games-database.p.rapidapi.com/api/games?category=${target}`, {
 	"method": "GET",
 	"headers": {
 		"x-rapidapi-key": "a7efc7bf10msh973c5973b934d10p1ba17cjsn0fe2a17f3bed",
@@ -18,7 +58,7 @@ const gameContainer = document.getElementById('game-container')
 	console.error(err);
 })
 }
-
+// fetchByCatergory()
 
 
 
@@ -46,6 +86,7 @@ const fetchByTitle = fetch("https://free-to-play-games-database.p.rapidapi.com/a
 
 
  function fetchgames(){
+    
  fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=alphabetical", {
 	"method": "GET",
 	"headers": {
@@ -57,6 +98,7 @@ const fetchByTitle = fetch("https://free-to-play-games-database.p.rapidapi.com/a
 // .then(games=>games.slice(0,10))
 .then(games=>games.forEach(game=>renderPicture(game)))
 .catch(err=>console.error(err))
+console.log('anything')
  }
 
 
@@ -64,45 +106,46 @@ const fetchByTitle = fetch("https://free-to-play-games-database.p.rapidapi.com/a
 
 
  function renderPicture(game){
+     const {title,thumbnail} = game
     const pTag4 = document.createElement('p')
     pTag4.innerText = `Realease Date: ${game.release_date}`
     const divTag = document.createElement('div')
     const h2Tag = document.createElement('h2')
-    h2Tag.innerText= game.title
+    h2Tag.innerText= title
     const imgTag = document.createElement('img')
-     imgTag.src = game.thumbnail
+     imgTag.src = thumbnail
      
      divTag.append(imgTag,h2Tag,pTag4)
      gameContainer.append(divTag)
-     divTag.addEventListener('click',(e)=>{
-        gameContainer.innerHTML= ""
-        const aTag = document.createElement('a');
-        const liTag = document.createElement('li');
-        const imgTag = document.createElement('img');
-        const h2Tag = document.createElement('h2');
-        const pTag = document.createElement('p');
-        const pTag2 = document.createElement('p');
-        const pTag3 = document.createElement('p')
-        
-        pTag3.innerText = `Realease Date: ${game.release_date}`
-        pTag2.style.fontWeight = '900'
-        h2Tag.innerHTML = game.title;
-        h2Tag.style.fontcolor='white';
-        imgTag.src = game.thumbnail;
-        pTag2.innerHTML = ` GENRE: ${game.genre} <br> <b>For full experience visit:</b>`;
-        pTag.innerHTML = game.short_description;
-        aTag.href= '#';
-        aTag.innerHTML = game.game_url;
-        
-       gameContainer.append(h2Tag,imgTag,pTag3,pTag,pTag2,aTag,);
-        
-        // console.log(e.target)
-        // console.log('clicked')
-        // console.log(aTag)
-     })
- }
+     divTag.addEventListener('click',()=> renderGameDetails(game))
+
+ } 
+    
+
+function renderGameDetails(game){
+    gameContainer.innerHTML= ""
+    const aTag = document.createElement('a');
+    const liTag = document.createElement('li');
+    const imgTag = document.createElement('img');
+    const h2Tag = document.createElement('h2');
+    const pTag = document.createElement('p');
+    const pTag2 = document.createElement('p');
+    const pTag3 = document.createElement('p')
+    
+    pTag3.innerText = `Realease Date: ${game.release_date}`
+    pTag2.style.fontWeight = '900'
+    h2Tag.innerHTML = game.title;
+    h2Tag.style.fontcolor='white';
+    imgTag.src = game.thumbnail;
+    pTag2.innerHTML = ` GENRE: ${game.genre} <br> <b>For full experience visit:</b>`;
+    pTag.innerHTML = game.short_description;
+    aTag.href= '#';
+    aTag.innerHTML = game.game_url;
+    
+   gameContainer.append(h2Tag,imgTag,pTag3,pTag,pTag2,aTag);
 
 
+}
 
 
 
@@ -161,7 +204,7 @@ fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=rele
 // fetchRecent()
 
 function clearBtn(){
-    gameContainer.innerHtml="";
+   
 const btn = document.getElementById('button')
 btn.innerText='CLEAR'
 btn.addEventListener('click',()=>{
@@ -217,7 +260,7 @@ const fightingBtn = document.getElementById('Fighting')
 console.log(fightingBtn)
 fightingBtn.addEventListener('click',()=> {
     
-    gameContainer.innerHtml="";
+    gameContainer.innerHTML="";
     fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?category=fighting", {
     "method": "GET",
     "headers": {
@@ -231,16 +274,16 @@ fightingBtn.addEventListener('click',()=> {
   
 })
 }
-fightBtn();
+// fightBtn();
 
 
 function actionBtn (){
-    gameContainer.innerHtml=""; 
+    
 const actionBtn = document.getElementById('action')
 console.log(actionBtn)
 actionBtn.addEventListener('click',()=> {
     
-    gameContainer.innerHtml="";
+    gameContainer.innerHTML="";
     fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?category=action", {
         "method": "GET",
         "headers": {
@@ -254,12 +297,12 @@ actionBtn.addEventListener('click',()=> {
   
 })
 }
-actionBtn()
+// actionBtn()
 
 function sups (){
-    const superH = document.getElementById('SuperHero')
+    const superH = document.getElementById('superHero')
     superH.addEventListener('click', ()=>{
-        gameContainer.innerHtml="";
+        gameContainer.innerHTML="";
         fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?category=superhero", {
 	"method": "GET",
 	"headers": {
@@ -274,12 +317,12 @@ function sups (){
     })
 
 }
-sups()
+// sups()
 
 function shooter(){
-    const shoot = document.getElementById('Shooter')
+    const shoot = document.getElementById('shooter')
     shoot.addEventListener('click',()=>{
-        gameContainer.innerHtml="";
+        gameContainer.innerHTML="";
         fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?category=shooter", {
 	"method": "GET",
 	"headers": {
@@ -292,12 +335,12 @@ function shooter(){
 .catch(err =>console.error(err))
     })
 }
-shooter()
+// shooter()
 
 function racer(){
     const race = document.getElementById('racing')
     race.addEventListener('click',()=>{
-        gameContainer.innerHtml="";
+        gameContainer.innerHTML="";
         fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?category=racing", {
 	"method": "GET",
 	"headers": {
@@ -310,12 +353,12 @@ function racer(){
 .catch(err =>console.error(err))
     })
 }
-racer()
+// racer()
 
 function sporty(){
-    const sports = document.getElementById('Sports')
+    const sports = document.getElementById('sports')
     sports.addEventListener('click',()=>{
-        gameContainer.innerHtml="";
+        gameContainer.innerHTML="";
         fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?category=sports", {
 	"method": "GET",
 	"headers": {
@@ -328,12 +371,12 @@ function sporty(){
 .catch(err =>console.error(err))
     })
 }
-sporty()
+// sporty()
 
 function towerDefense(){
-    const tower = document.getElementById('Tower-defense')
+    const tower = document.getElementById('tower-defense')
     tower.addEventListener('click',()=>{
-        gameContainer.innerHtml="";
+        gameContainer.innerHTML="";
         fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?category=tower-defense", {
 	"method": "GET",
 	"headers": {
@@ -349,19 +392,19 @@ function towerDefense(){
 towerDefense()
 
 function allgames(){
-    const all= document.getElementById('all-titles')
+    const all= document.getElementById('alphabetical')
     all.addEventListener('click',()=>{
-        gameContainer.innerHtml="";
+        gameContainer.innerHTML="";
     fetchgames()
 })
 }
-allgames()
+// allgames()
 
 
 function recent(){
     const recentBut = document.getElementById('recent')
     recentBut.addEventListener('click',()=>{
-        gameContainer.innerHtml="";
+        gameContainer.innerHTML="";
      fetchRecent()
         })
     }
@@ -371,7 +414,7 @@ function recent(){
       const gamecontainer =document.getElementById('game-container')
       const pvpbtn = document.getElementById('pvp')
       pvpbtn.addEventListener('click',()=>{
-        gamecontainer.innerHtml=""
+        gamecontainer.innerHTML=""
         fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?category=pvp", {
 	"method": "GET",
 	"headers": {
@@ -384,12 +427,12 @@ function recent(){
 .catch(err =>console.error(err))
       })
   }
-  pvp()
+//   pvp()
   function social(){
-      const socialBtn = document.getElementById('Social')
+      const socialBtn = document.getElementById('social')
       socialBtn.addEventListener('click',(e)=>{
       e.preventDefault();
-        gameContainer.innerHtml="";
+        gameContainer.innerHTML="";
       fetch("https://free-to-play-games-database.p.rapidapi.com/api/games?category=social", {
 	"method": "GET",
 	"headers": {
@@ -402,7 +445,7 @@ function recent(){
 .catch(err =>console.error(err))
       })
       }
-      social()
+    //   social()
 
-const h2Tags= document.querySelectorAll('h2')
-h2Tags.style.fontcolor='white'
+
+

@@ -29,6 +29,7 @@ body {
 
 } */
 
+
 #first-header{
     margin: auto;
     /* width: 50%; */
@@ -76,8 +77,9 @@ body {
     padding:5%;
     box-shadow:0 8px 16px 0 rgba(0,0,0,0.6)
 } */
-#select-form{
-    width:100%;
+#submitButton{
+    height:30%;
+    width:20%;
     padding:5%;
 }
 #select-container1{
